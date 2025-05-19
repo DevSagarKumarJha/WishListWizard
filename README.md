@@ -34,17 +34,19 @@ WishlistWizard/
 ## Getting Started
 
 1. **Install dependencies**
+
    ```sh
    npm install
    ```
 
 2. **Run the development server**
+
    ```sh
    npm run dev
    ```
 
 3. **Open in your browser**
-   Visit [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
+   Visit [https://wish-list-wizard.vercel.app/](https://wish-list-wizard.vercel.app/) (or the port shown in your terminal).
 
 ## Usage
 
