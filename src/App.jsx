@@ -1,11 +1,11 @@
 import { HeartPlus } from "lucide-react";
-import { WishlistForm, WishlistItem } from "./components";
+import { Filter, WishlistForm, WishlistItem } from "./components";
 import { useState } from "react";
 
 function App() {
-
   const array = [];
   const [items, setItems] = useState(array);
+  const [filter, setFilter] = useState("All");
 
   const addItem = (item) => setItems([...items, item]);
 
@@ -13,6 +13,11 @@ function App() {
     const updatedItems = items.filter((_, i) => i !== index);
     setItems(updatedItems);
   };
+
+  const filteredItems =
+    filter === "All" ? items : items.filter((item) => item.category === filter);
+
+  const uniqueCategories = ["All", ...new Set(items.map((i) => i.category))];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 p-6">
@@ -22,16 +27,23 @@ function App() {
       </h1>
 
       <WishlistForm onAddItem={addItem} />
+      <div className="px-10">
+        <Filter
+          categories={uniqueCategories}
+          selected={filter}
+          onSelect={setFilter}
+        />
 
-      <ul className="mt-6 grid gap-4">
-        {items.map((item, index) => (
-          <WishlistItem
-            key={index}
-            item={item}
-            onRemove={() => removeItem(index)}
-          />
-        ))}
-      </ul>
+        <ul className="mt-6 grid gap-4">
+          {filteredItems.map((item, index) => (
+            <WishlistItem
+              key={index}
+              item={item}
+              onRemove={() => removeItem(index)}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
