@@ -36,11 +36,11 @@ function App() {
 
       <WishlistForm onAddItem={addItem} />
       <div className="px-10">
-        <Filter
+        {items.length > 0 ? (<Filter
           categories={uniqueCategories}
           selected={filter}
           onSelect={setFilter}
-        />
+        />) : <div/>}
 
         <ul className="mt-6 grid gap-4">
           {filteredItems.map((item, index) => (
