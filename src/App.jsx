@@ -1,11 +1,15 @@
 import { HeartPlus } from "lucide-react";
 import { Filter, WishlistForm, WishlistItem } from "./components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const array = [];
   const [items, setItems] = useState(array);
   const [filter, setFilter] = useState("All");
+
+  useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(items));
+  }, [items]);
 
   const addItem = (item) => setItems([...items, item]);
 
