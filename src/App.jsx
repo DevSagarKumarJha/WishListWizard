@@ -3,8 +3,12 @@ import { Filter, WishlistForm, WishlistItem } from "./components";
 import { useEffect, useState } from "react";
 
 function App() {
-  const array = [];
-  const [items, setItems] = useState(array);
+  const fetchItems = () => {
+    const stored = localStorage.getItem("wishlist");
+    return stored ? JSON.parse(stored) : [];
+  };
+
+  const [items, setItems] = useState(fetchItems);
   const [filter, setFilter] = useState("All");
 
   useEffect(() => {
