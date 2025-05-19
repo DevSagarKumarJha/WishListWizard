@@ -2,6 +2,8 @@
 
 WishlistWizard is a modern React app for managing your personal wishlist. Add, categorize, filter, and remove items, with all data saved in your browser's localStorage.
 
+[visit here](https://wish-list-wizard.vercel.app/)
+
 ## Features
 
 - Add items to your wishlist with a name and category
@@ -34,19 +36,17 @@ WishlistWizard/
 ## Getting Started
 
 1. **Install dependencies**
-
    ```sh
    npm install
    ```
 
 2. **Run the development server**
-
    ```sh
    npm run dev
    ```
 
 3. **Open in your browser**
-   Visit [https://wish-list-wizard.vercel.app/](https://wish-list-wizard.vercel.app/) (or the port shown in your terminal).
+   Visit [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
 
 ## Usage
 
@@ -61,6 +61,7 @@ WishlistWizard/
 - [Vite](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Lucide React Icons](https://lucide.dev/icons/)
+
 
 ## License
 
