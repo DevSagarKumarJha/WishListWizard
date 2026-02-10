@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAllItems, saveItem, deleteItem } from "./utils/db";
-import { extractCategories, normalize } from "./utils/category";
+import { extractCategories, format} from "./utils/category";
 import { toggleComplete } from "./utils/wishlist";
-import { Filter, WishlistCard, WishlistModal } from "./components";
+import { WishlistCard, WishlistModal, Filter } from "./components";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -26,7 +26,7 @@ function App() {
   const visible =
     filter === "All"
       ? items
-      : items.filter((i) => i.category === normalize(filter));
+      : items.filter((i) => i.category === format(filter));
 
   return (
     <main className="min-h-screen bg-black text-white p-6">
