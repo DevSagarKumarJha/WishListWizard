@@ -15,6 +15,12 @@ function App() {
     localStorage.setItem("wishlist", JSON.stringify(items));
   }, [items]);
 
+  function capitalize(value) {
+    if (typeof value !== "string") return "";
+    const str = value.trim();
+    return str ? str[0].toUpperCase() + str.slice(1) : "";
+  }
+
   const addItem = (item) => setItems([...items, item]);
 
   const removeItem = (index) => {
@@ -23,12 +29,14 @@ function App() {
   };
 
   const filteredItems =
-    filter === "All" ? items : items.filter((item) => item.category === filter);
+    filter === "All"
+      ? items
+      : items.filter((item) => capitalize(item.category) === filter);
 
-  const uniqueCategories = ["All", ...new Set(items.map((i) => i.category))];
+  const uniqueCategories = ["All", ...new Set(items.map((i) => capitalize(i.category)))];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 p-6">
+    <div className="min-h-screen bg-linear-to-br from-blue-100 to-gray-100 p-6">
       <h1 className="text-3xl font-bold flex justify-center items-center mb-6 gap-2.5">
         <HeartPlus size={50} className="bg-red-600 p-2 rounded-full" /> Wishlist
         Wizard
@@ -36,11 +44,15 @@ function App() {
 
       <WishlistForm onAddItem={addItem} />
       <div className="px-10">
-        {items.length > 0 ? (<Filter
-          categories={uniqueCategories}
-          selected={filter}
-          onSelect={setFilter}
-        />) : <div/>}
+        {items.length > 0 ? (
+          <Filter
+            categories={uniqueCategories}
+            selected={filter}
+            onSelect={setFilter}
+          />
+        ) : (
+          <div />
+        )}
 
         <ul className="mt-6 grid gap-4">
           {filteredItems.map((item, index) => (
