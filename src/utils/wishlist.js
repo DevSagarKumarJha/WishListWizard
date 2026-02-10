@@ -1,15 +1,17 @@
-import { normalize } from "./category";
+import { format } from "./category";
 
-export function createItem(name, category) {
+export function createItem({ name, description, category }) {
   return {
     id: crypto.randomUUID(),
     name: name.trim(),
-    category: normalize(category),
+    description: description.trim(),
+    category: format(category),
     completed: false,
     createdAt: Date.now()
   };
 }
 
-export function toggleComplete(item) {
-  return { ...item, completed: !item.completed };
-}
+export const toggleComplete = item => ({
+  ...item,
+  completed: !item.completed
+});

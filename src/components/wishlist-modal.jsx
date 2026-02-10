@@ -1,41 +1,81 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createItem } from "../utils/wishlist";
 
-function WishlistModal({ open, onClose, onAdd, categories }) {
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState(categories[0]);
+const EMPTY = { name: "", description: "", category: "General" };
+
+function WishlistModal({
+  open,
+  mode,               // "add" | "edit"
+  editingItem,
+  categories,
+  onClose,
+  onSave
+}) {
+  const [form, setForm] = useState(EMPTY);
   const [addingCategory, setAddingCategory] = useState(false);
   const [newCategory, setNewCategory] = useState("");
+
+  const reset = () => {
+    setForm({ ...EMPTY, category: categories[0] || "General" });
+    setAddingCategory(false);
+    setNewCategory("");
+  };
+
+  useEffect(() => {
+    if (mode === "edit" && editingItem) {
+      setForm(editingItem);
+    } else {
+      reset();
+    }
+  }, [mode, editingItem, categories]);
 
   if (!open) return null;
 
   const submit = () => {
-    if (!name || !category) return;
-    onAdd(createItem(name, category));
-    setName("");
+    if (!form.name.trim()) return;
+
+    const payload =
+      mode === "edit" ? form : createItem(form);
+
+    onSave(payload);
+    reset();
     onClose();
   };
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center">
-      <div className="bg-gray-900 p-6 rounded-lg w-96 space-y-4">
-        <h2 className="text-xl font-bold">Add Wishlist Item</h2>
+      <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md space-y-4">
+        <h2 className="text-xl font-bold">
+          {mode === "edit" ? "Edit Item" : "Add Item"}
+        </h2>
 
         <input
           className="w-full p-2 bg-gray-800 rounded"
           placeholder="Item name"
-          value={name}
-          onChange={e => setName(e.target.value)}
+          value={form.name}
+          onChange={e => setForm({ ...form, name: e.target.value })}
+        />
+
+        <textarea
+          className="w-full p-2 bg-gray-800 rounded"
+          placeholder="Description"
+          rows={3}
+          value={form.description}
+          onChange={e =>
+            setForm({ ...form, description: e.target.value })
+          }
         />
 
         <div className="flex gap-2">
           <select
             className="flex-1 p-2 bg-gray-800 rounded"
-            value={category}
-            onChange={e => setCategory(e.target.value)}
+            value={form.category}
+            onChange={e =>
+              setForm({ ...form, category: e.target.value })
+            }
           >
             {categories.map(c => (
-              <option key={c}>{c}</option>
+              <option key={c} value={c}>{c}</option>
             ))}
           </select>
 
@@ -54,16 +94,22 @@ function WishlistModal({ open, onClose, onAdd, categories }) {
             value={newCategory}
             onChange={e => setNewCategory(e.target.value)}
             onBlur={() => {
-              if (newCategory) setCategory(newCategory);
+              if (newCategory) {
+                setForm({ ...form, category: newCategory });
+              }
               setAddingCategory(false);
+              setNewCategory("");
             }}
           />
         )}
 
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-3">
           <button onClick={onClose}>Cancel</button>
-          <button onClick={submit} className="bg-green-600 px-4 py-1 rounded">
-            Add
+          <button
+            onClick={submit}
+            className="bg-green-600 px-4 py-1 rounded"
+          >
+            Save
           </button>
         </div>
       </div>

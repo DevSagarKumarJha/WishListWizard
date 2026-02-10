@@ -8,7 +8,6 @@ export function openDB() {
 
     req.onupgradeneeded = () => {
       const db = req.result;
-
       if (!db.objectStoreNames.contains(STORE)) {
         db.createObjectStore(STORE, { keyPath: "id" });
       }
@@ -21,11 +20,9 @@ export function openDB() {
 
 export async function getAllItems() {
   const db = await openDB();
-
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const tx = db.transaction(STORE, "readonly");
-    const store = tx.objectStore(STORE);
-    const req = store.getAll();
+    const req = tx.objectStore(STORE).getAll();
     req.onsuccess = () => resolve(req.result || []);
   });
 }
