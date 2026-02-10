@@ -1,32 +1,42 @@
-# WishlistWizard
+# WishList Wizard
 
-WishlistWizard is a modern React app for managing your personal wishlist. Add, categorize, filter, and remove items, with all data saved in your browser's localStorage.
-
-[visit here](https://wish-list-wizard.vercel.app/)
+WishList Wizard is a small React + Vite app for tracking personal wishlist items. It supports quick add/edit flows, category filtering, and offline-friendly persistence using IndexedDB.
 
 ## Features
 
-- Add items to your wishlist with a name and category
-- Filter wishlist items by category
-- Remove items from your wishlist
-- Persistent storage using localStorage
-- Responsive UI styled with Tailwind CSS
+- Add, edit, and delete wishlist items
+- Mark items as completed
+- Filter by category (including an "All" view)
+- Create new categories on the fly in the modal
+- Persistent storage with IndexedDB
+- Responsive grid layout with Tailwind CSS
+
+## Tech Stack
+
+- React 19
+- Vite 6
+- Tailwind CSS v4 (via the Vite plugin)
+- IndexedDB for local persistence
+- Lucide React icons
 
 ## Project Structure
 
 ```
 WishlistWizard/
 ├── public/
-│   └── vite.svg
 ├── src/
 │   ├── App.jsx
 │   ├── index.css
 │   ├── main.jsx
-│   └── components/
-│       ├── Filter.jsx
-│       ├── index.jsx
-│       ├── WishlistForm.jsx
-│       └── WishlistItem.jsx
+│   ├── components/
+│   │   ├── filter.jsx
+│   │   ├── index.jsx
+│   │   ├── wishlist-card.jsx
+│   │   └── wishlist-modal.jsx
+│   └── utils/
+│       ├── category.js
+│       ├── db.js
+│       └── wishlist.js
 ├── index.html
 ├── package.json
 ├── vite.config.js
@@ -35,33 +45,35 @@ WishlistWizard/
 
 ## Getting Started
 
-1. **Install dependencies**
-   ```sh
-   npm install
-   ```
+1. Install dependencies
 
-2. **Run the development server**
-   ```sh
-   npm run dev
-   ```
+```sh
+npm install
+```
 
-3. **Open in your browser**
-   Visit [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
+2. Run the dev server
 
-## Usage
+```sh
+npm run dev
+```
 
-- Use the form to add new wishlist items.
-- Filter items by category using the filter buttons.
-- Remove items by clicking the remove (X) icon.
-- All changes are saved automatically in your browser.
+3. Build for production
 
-## Technologies Used
+```sh
+npm run build
+```
 
-- [React](https://react.dev/)
-- [Vite](https://vitejs.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Lucide React Icons](https://lucide.dev/icons/)
+4. Preview the production build
 
+```sh
+npm run preview
+```
+
+## Usage Notes
+
+- Items are stored in the browser using IndexedDB (database name: `wishlist-db`).
+- Clearing site data in the browser will remove all stored items.
+- Category labels are normalized with a leading capital letter.
 
 ## License
 
