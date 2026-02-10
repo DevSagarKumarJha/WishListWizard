@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import WishlistModal from "./components/wishlist-modal";
-import WishlistCard from "./components/wishlist-card";
-import Filter from "./components/filter";
 import { getAllItems, saveItem, deleteItem } from "./utils/db";
 import { extractCategories, normalize } from "./utils/category";
 import { toggleComplete } from "./utils/wishlist";
+import { Filter, WishlistCard, WishlistModal } from "./components";
 
 function App() {
   const [items, setItems] = useState([]);

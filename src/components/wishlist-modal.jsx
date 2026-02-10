@@ -43,21 +43,21 @@ function WishlistModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center">
-      <div className="bg-gray-900 p-6 rounded-lg w-full max-w-md space-y-4">
+    <div className="fixed inset-0 bg-zinc-700/70 flex items-center justify-center">
+      <div className="bg-zinc-950 p-6 rounded-lg w-full max-w-md space-y-4">
         <h2 className="text-xl font-bold">
           {mode === "edit" ? "Edit Item" : "Add Item"}
         </h2>
 
         <input
-          className="w-full p-2 bg-gray-800 rounded"
+          className="w-full p-2 bg-zinc-900 rounded"
           placeholder="Item name"
           value={form.name}
           onChange={e => setForm({ ...form, name: e.target.value })}
         />
 
         <textarea
-          className="w-full p-2 bg-gray-800 rounded"
+          className="w-full p-2 bg-zinc-900 rounded"
           placeholder="Description"
           rows={3}
           value={form.description}
@@ -68,7 +68,7 @@ function WishlistModal({
 
         <div className="flex gap-2">
           <select
-            className="flex-1 p-2 bg-gray-800 rounded"
+            className="flex-1 p-2 bg-zinc-900 rounded"
             value={form.category}
             onChange={e =>
               setForm({ ...form, category: e.target.value })
@@ -89,7 +89,7 @@ function WishlistModal({
 
         {addingCategory && (
           <input
-            className="w-full p-2 bg-gray-800 rounded"
+            className="w-full p-2 bg-zinc-900 rounded"
             placeholder="New category"
             value={newCategory}
             onChange={e => setNewCategory(e.target.value)}
